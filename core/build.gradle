@@ -1,0 +1,83 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp' version "$ksp_version"
+}
+
+android {
+    namespace 'com.hivian.randomusers.core'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 27
+        targetSdk 34
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+    testOptions {
+        unitTests {
+            all {
+                useJUnitPlatform()
+            }
+            includeAndroidResources  = true
+            returnDefaultValues = true
+        }
+    }
+}
+
+dependencies {
+
+    // UI
+    implementation "androidx.compose.material3:material3:$material_version"
+
+    // DI
+    api("io.insert-koin:koin-core:$koin_version")
+    api "io.insert-koin:koin-android:$koin_version"
+    api "io.insert-koin:koin-androidx-compose:$koin_version"
+
+    // ROOM
+    ksp "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // RETROFIT
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    // LOGGER
+    api 'com.github.ajalt:timberkt:1.5.1'
+
+    // TESTS
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.1.0'
+    testImplementation "org.mockito:mockito-inline:5.2.0"
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation('org.junit.jupiter:junit-jupiter:5.10.0')
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+}
