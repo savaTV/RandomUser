@@ -10,13 +10,14 @@ import androidx.compose.runtime.snapshotFlow
 @Composable
 fun LazyListState.OnBottomReached(
     buffer: Int = 0,
-    loadMore : () -> Unit
-){
+    loadMore: () -> Unit
+) {
     var previousIndex = 0
 
     val shouldLoadMore = remember {
         derivedStateOf {
-            val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull() ?: return@derivedStateOf false
+            val lastVisibleItem =
+                layoutInfo.visibleItemsInfo.lastOrNull() ?: return@derivedStateOf false
 
             val scrolledToBottom = lastVisibleItem.index > previousIndex
             val isLastItem = lastVisibleItem.index >= layoutInfo.totalItemsCount - 1 - buffer

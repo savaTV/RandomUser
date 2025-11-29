@@ -32,7 +32,7 @@ data class RandomUserDTO(
 
     val nat: String,
 
-)
+    )
 
 
 

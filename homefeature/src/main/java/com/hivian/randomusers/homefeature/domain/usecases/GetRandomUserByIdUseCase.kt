@@ -9,7 +9,10 @@ class GetRandomUserByIdUseCase(
 ) {
 
     suspend operator fun invoke(userId: Int): ServiceResult<RandomUser> {
-        return randomUsersService.getUserById(userId, com.hivian.randomusers.homefeature.data.mappers.ImageSize.LARGE)
+        return randomUsersService.getUserById(
+            userId,
+            com.hivian.randomusers.homefeature.data.mappers.ImageSize.LARGE
+        )
     }
 
 }

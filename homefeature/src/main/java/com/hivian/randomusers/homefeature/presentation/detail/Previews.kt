@@ -5,22 +5,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
 data class DetailViewModelArg(
-    val picture : MutableState<String>,
-    val name : MutableState<String>,
-    val email : MutableState<String>,
-    val cell : MutableState<String>,
-    val phone : MutableState<String>,
-    val city : MutableState<String>,
-    val country : MutableState<String>,
-    val latitude : MutableState<Double>,
-    val longitude : MutableState<Double>,
+    val ondelete: () -> Unit = {},
+    val picture: MutableState<String>,
+    val name: MutableState<String>,
+    val email: MutableState<String>,
+    val cell: MutableState<String>,
+    val phone: MutableState<String>,
+    val city: MutableState<String>,
+    val country: MutableState<String>,
+    val latitude: MutableState<Double>,
+    val longitude: MutableState<Double>,
     val navigateBack: () -> Unit = {},
-    val age : MutableState<Int>,
-    val data : MutableState<String>,
-    val nat : MutableState<String>
+    val age: MutableState<Int>,
+    val data: MutableState<String>,
+    val nat: MutableState<String>,
+    val gender: MutableState<String>
 )
 
-class DetailViewModelArgProvider: PreviewParameterProvider<DetailViewModelArg> {
+class DetailViewModelArgProvider : PreviewParameterProvider<DetailViewModelArg> {
     override val values: Sequence<DetailViewModelArg> = sequenceOf(
         DetailViewModelArg(
             picture = mutableStateOf(""),
@@ -34,9 +36,10 @@ class DetailViewModelArgProvider: PreviewParameterProvider<DetailViewModelArg> {
             longitude = mutableStateOf(0.0),
             age = mutableStateOf(14),
             data = mutableStateOf("2007-07-09T05:51:59.390Z"),
-            nat = mutableStateOf("US")
+            nat = mutableStateOf("US"),
+            gender = mutableStateOf("male"),
 
 
-        )
+            )
     )
 }

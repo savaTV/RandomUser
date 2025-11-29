@@ -4,12 +4,12 @@ import com.hivian.randomusers.core.data.remote.ErrorType
 
 sealed class ViewModelVisualState {
 
-    data object Loading: ViewModelVisualState()
+    data object Loading : ViewModelVisualState()
 
-    data class Error(val errorType: ErrorType): ViewModelVisualState()
+    data class Error(val errorType: ErrorType) : ViewModelVisualState()
 
-    data object Success: ViewModelVisualState()
+    data object Success : ViewModelVisualState()
 
-    data object Unknown: ViewModelVisualState()
+    data object Unknown : ViewModelVisualState()
 
 }

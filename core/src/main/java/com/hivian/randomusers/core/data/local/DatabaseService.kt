@@ -6,7 +6,7 @@ import com.hivian.randomusers.core.domain.services.IDatabaseService
 
 internal class DatabaseService(
     private val dao: IRandomUsersDao
-): IDatabaseService {
+) : IDatabaseService {
 
     override suspend fun getUserById(userId: Int): RandomUserDTO {
         return dao.getRandomUserById(userId)

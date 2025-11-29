@@ -13,10 +13,15 @@ import com.hivian.randomusers.core.data.local.dao.IRandomUsersDao
 import com.hivian.randomusers.core.data.models.RandomUserDTO
 
 @Database(entities = [RandomUserDTO::class], version = AppDatabase.DB_VERSION, exportSchema = false)
-@TypeConverters(NameConverter::class, LocationConverter::class, PictureConverter::class, DobConverter::class)
+@TypeConverters(
+    NameConverter::class,
+    LocationConverter::class,
+    PictureConverter::class,
+    DobConverter::class
+)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun randomUsersDao() : IRandomUsersDao
+    abstract fun randomUsersDao(): IRandomUsersDao
 
     companion object {
         private const val DB_NAME = "app_database"

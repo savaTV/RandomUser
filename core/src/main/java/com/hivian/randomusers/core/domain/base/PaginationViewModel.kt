@@ -6,7 +6,7 @@ import com.hivian.randomusers.core.data.remote.ErrorType
 abstract class PaginationViewModel<Key, Item>(
     private val initialKey: Key,
     private val pageSize: Int
-): ViewModelBase() {
+) : ViewModelBase() {
 
     private var initialLoad: Boolean = true
 
@@ -14,7 +14,7 @@ abstract class PaginationViewModel<Key, Item>(
 
     protected abstract fun getNextKey(currentKey: Key): Key
 
-    protected abstract suspend fun onRequest(nextKey: Key, pageSize: Int) : ServiceResult<List<Item>>
+    protected abstract suspend fun onRequest(nextKey: Key, pageSize: Int): ServiceResult<List<Item>>
 
     protected abstract fun onLoading(initialLoad: Boolean)
 
@@ -37,6 +37,7 @@ abstract class PaginationViewModel<Key, Item>(
                 onSuccess(items, initialLoad)
                 currentKey = getNextKey(currentKey)
             }
+
             is ServiceResult.Error -> {
                 if (!result.data.isNullOrEmpty()) {
                     currentKey = getNextKey(currentKey)
