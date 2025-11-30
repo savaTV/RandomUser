@@ -17,3 +17,4 @@ val useCaseModule = module {
     factory { provideGetRandomUsersUseCase(get()) }
     factory { provideGetRandomUserByIdUseCase(get()) }
 }
+

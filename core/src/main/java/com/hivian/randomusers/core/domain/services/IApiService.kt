@@ -9,15 +9,20 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.concurrent.CancellationException
 
-interface IApiService: IHttpService {
+interface IApiService : IHttpService {
 
-    suspend fun fetchRandomUsers(page: Int, results: Int): HttpResult<Results>
+    suspend fun fetchRandomUsers(
+        page: Int,
+        results: Int,
+        gender: String? = null,
+        nat: String? = null
+    ): HttpResult<Results>
 
 }
 
 interface IHttpService {
 
-    suspend fun <T : Any> safeApiCall(call: suspend () -> T) : HttpResult<T> {
+    suspend fun <T : Any> safeApiCall(call: suspend () -> T): HttpResult<T> {
         return try {
             val response = call.invoke()
 
@@ -37,6 +42,7 @@ interface IHttpService {
                         }
                     )
                 }
+
                 else -> HttpResult.Error(ErrorType.UNKNOWN)
             }
         }

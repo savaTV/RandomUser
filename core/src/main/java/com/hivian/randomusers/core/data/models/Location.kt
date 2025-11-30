@@ -45,7 +45,12 @@ data class Location(
 
     companion object {
         val EMPTY = Location(
-            street = Street.EMPTY, city = "", state = "", country = "", postcode = "", Coordinates.EMPTY
+            street = Street.EMPTY,
+            city = "",
+            state = "",
+            country = "",
+            postcode = "",
+            Coordinates.EMPTY
         )
     }
 

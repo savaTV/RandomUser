@@ -7,10 +7,20 @@ internal class ApiService(
     private val service: IHttpClient
 ): IApiService {
 
-    override suspend fun fetchRandomUsers(page: Int, results: Int): HttpResult<Results> {
+    override suspend fun fetchRandomUsers(
+        page: Int,
+        results: Int,
+        gender: String?,
+        nat: String?
+    ): HttpResult<Results> {
         return safeApiCall {
-            service.fetchRandomUsers(page = page, results = results)
+            service.fetchRandomUsers(
+                gender = gender,
+                nat = nat,
+                page = page,
+                results = results,
+                seed = null // <--- ОБЯЗАТЕЛЬНО NULL
+            )
         }
     }
-
 }

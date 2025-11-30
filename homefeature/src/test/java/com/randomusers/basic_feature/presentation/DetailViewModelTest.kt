@@ -82,7 +82,8 @@ class DetailViewModelTest {
             { assertEquals(userDomain.email, viewModel.email.value) },
             { assertEquals(userDomain.cell, viewModel.cell.value) },
             { assertEquals(userDomain.phone, viewModel.phone.value) },
-            { assertEquals(userDomain.nat, viewModel.nat.value)}
+            { assertEquals(userDomain.nat, viewModel.nat.value)},
+
         )
     }
 

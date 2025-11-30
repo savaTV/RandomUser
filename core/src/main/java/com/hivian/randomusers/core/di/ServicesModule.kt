@@ -7,15 +7,14 @@ import com.hivian.randomusers.core.presentation.services.LocalizationService
 import com.hivian.randomusers.core.presentation.services.UserInteractionService
 import org.koin.dsl.module
 
-private fun provideLocalizationService(applicationContext: Application): ILocalizationService {
+fun provideLocalizationService(applicationContext: Application): ILocalizationService {
     return LocalizationService(applicationContext)
 }
 
-private fun provideUserInteractionService(): IUserInteractionService {
+fun provideUserInteractionService(): IUserInteractionService {
     return UserInteractionService()
 }
 
-val coreServiceModule = module {
-    single<ILocalizationService> { provideLocalizationService(get()) }
-    single<IUserInteractionService> { provideUserInteractionService() }
-}
+
+
+

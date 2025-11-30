@@ -8,6 +8,7 @@ import com.hivian.randomusers.core.domain.extensions.toErrorMessage
 import com.hivian.randomusers.core.domain.usecases.ShowAppMessageUseCase
 import com.hivian.randomusers.core.domain.usecases.TranslateResourceUseCase
 import com.hivian.randomusers.core.presentation.navigation.NavigationAction
+import com.hivian.randomusers.homefeature.domain.services.IRandomUsersService
 import com.hivian.randomusers.homefeature.domain.usecases.GetRandomUserByIdUseCase
 import kotlinx.coroutines.launch
 
@@ -16,32 +17,23 @@ class DetailViewModel(
     private val translateResourceUseCase: TranslateResourceUseCase,
     private val getRandomUserByIdUseCase: GetRandomUserByIdUseCase,
     private val showAppMessageUseCase: ShowAppMessageUseCase,
-): ViewModelBase() {
+
+    private val randomUsersService: IRandomUsersService
+) : ViewModelBase() {
 
     val picture = mutableStateOf("")
-
     val name = mutableStateOf("")
-
     val email = mutableStateOf("")
-
     val cell = mutableStateOf("")
-
     val phone = mutableStateOf("")
-
     val city = mutableStateOf("")
-
     val country = mutableStateOf("")
-
     val latitude = mutableStateOf(0.0)
-
     val longitude = mutableStateOf(0.0)
-
     val age = mutableStateOf(0)
-
     val data = mutableStateOf("")
-
     val nat = mutableStateOf("")
-
+    val gender = mutableStateOf("")
 
     override fun initialize() {
         if (isInitialized.value) return
@@ -53,23 +45,24 @@ class DetailViewModel(
                         translateResourceUseCase(result.errorType.toErrorMessage())
                     )
                 }
+
                 is ServiceResult.Success -> {
                     picture.value = result.data.picture
                     name.value = result.data.fullName
                     email.value = result.data.email
                     cell.value = result.data.cell
                     phone.value = result.data.phone
-                    city.value =result.data.address.city
+                    city.value = result.data.address.city
                     country.value = result.data.address.country
                     latitude.value = result.data.address.latitude
                     longitude.value = result.data.address.longitude
                     age.value = result.data.dob.age
                     data.value = result.data.dob.date
                     nat.value = result.data.nat
+                    gender.value = result.data.gender
                 }
             }
         }
-
         isInitialized.value = true
     }
 
@@ -79,4 +72,12 @@ class DetailViewModel(
         }
     }
 
+    // Реализуем удаление
+    fun deleteUser() {
+        viewModelScope.launch {
+
+            randomUsersService.deleteUser(userId)
+            navigateBack()
+        }
+    }
 }

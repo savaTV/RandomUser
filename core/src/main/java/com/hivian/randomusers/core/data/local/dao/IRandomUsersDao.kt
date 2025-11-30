@@ -9,9 +9,17 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.hivian.randomusers.core.data.models.Name
 import com.hivian.randomusers.core.data.models.RandomUserDTO
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface IRandomUsersDao {
+
+
+    @Query("SELECT * FROM random_user_entity ORDER BY localId ASC")
+    fun getAllUsersFlow(): Flow<List<RandomUserDTO>>
+
+    @Query("DELETE FROM random_user_entity WHERE localId = :id")
+    suspend fun deleteUserById(id: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg randomUserEntity: RandomUserDTO)
@@ -50,5 +58,4 @@ interface IRandomUsersDao {
     suspend fun upsert(randomUsersList: List<RandomUserDTO>) {
         randomUsersList.forEach { upsert(it) }
     }
-
 }

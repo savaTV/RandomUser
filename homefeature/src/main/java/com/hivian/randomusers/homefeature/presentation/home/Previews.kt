@@ -1,6 +1,8 @@
 package com.hivian.randomusers.homefeature.presentation.home
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.Recomposer
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -12,18 +14,23 @@ import com.hivian.randomusers.homefeature.domain.models.Dob
 import com.hivian.randomusers.homefeature.domain.models.RandomUser
 
 data class HomeViewModelArg(
-    val randomUsers: SnapshotStateList<RandomUser>,
-    val isListLoading: MutableState<Boolean>,
+    val randomUsers: List<RandomUser>,
+    val isListLoading: State<Boolean>,
     val title: String,
+    val onDelete: (Int) -> Unit = {},
     val errorMessage: String,
     val retryMessage: String,
-    val visualState: MutableState<ViewModelVisualState> = mutableStateOf(ViewModelVisualState.Loading),
+    val visualState: State<ViewModelVisualState>,
     val refresh: () -> Unit = {},
     val loadNext: () -> Unit = {},
     val openDetail: (Int) -> Unit = {},
-)
+    val onFilterClick: () -> Unit = {}
+) {
 
-class HomeViewModelArgProvider: PreviewParameterProvider<HomeViewModelArg> {
+
+}
+
+class HomeViewModelArgProvider : PreviewParameterProvider<HomeViewModelArg> {
     override val values: Sequence<HomeViewModelArg> = sequenceOf(
         HomeViewModelArg(
             randomUsers = mutableStateListOf(),
@@ -73,7 +80,7 @@ private fun populateList(): SnapshotStateList<RandomUser> {
             age = 20,
             date = "2023-01-01"
         ),
-        nat = "US"
+        nat = "US",
     )
 
     val userList = mutableStateListOf<RandomUser>()
@@ -89,7 +96,7 @@ data class InitErrorViewArg(
     val retryMessage: String,
 )
 
-class InitErrorViewArgProvider: PreviewParameterProvider<InitErrorViewArg> {
+class InitErrorViewArgProvider : PreviewParameterProvider<InitErrorViewArg> {
     override val values: Sequence<InitErrorViewArg> = sequenceOf(
         InitErrorViewArg(errorMessage = "Unknown error", retryMessage = "Retry")
     )

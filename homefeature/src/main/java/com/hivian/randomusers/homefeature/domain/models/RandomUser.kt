@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Address (
+data class Address(
 
     val city: String,
 
@@ -16,14 +16,14 @@ data class Address (
 
     val longitude: Double
 
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class Dob(
     val age: Int,
 
     val date: String
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class RandomUser(
@@ -51,11 +51,9 @@ data class RandomUser(
     val nat: String,
 
 
+    ) : Parcelable {
 
-
-    ): Parcelable {
-
-    val fullName : String
+    val fullName: String
         get() = "$firstName $lastName"
 
 }
